@@ -1,0 +1,11 @@
+{
+  "firebaseConfig": {
+    "apiKey": "AIzaSyBwsQyApkKG_GQjSs0kr9tZar7e2JYGmXY",
+    "authDomain": "react-pinterst.firebaseapp.com",
+    "databaseURL": "https://react-pinterst.firebaseio.com",
+    "projectId": "react-pinterst",
+    "storageBucket": "react-pinterst.appspot.com",
+    "messagingSenderId": "911042265099",
+    "appId": "1:911042265099:web:fd6cc640b0b0fe2c55c70e"
+  }
+}
