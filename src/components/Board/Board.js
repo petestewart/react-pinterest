@@ -11,7 +11,6 @@ class Board extends React.Component {
   singleBoardEvent = (e) => {
     e.preventDefault();
     const { board, setSingleBoard } = this.props;
-    console.warn('Board.singleBoardEvent board', setSingleBoard);
     setSingleBoard(board.id);
   }
 
