@@ -14,15 +14,22 @@ class Board extends React.Component {
     setSingleBoard(board.id);
   }
 
+  deleteBoardEvent = (e) => {
+    e.preventDefault();
+    const { board, deleteBoard } = this.props;
+    deleteBoard(board.id);
+  }
+
   render() {
     const { board } = this.props;
 
     return (
-      <div className="card">
+      <div className="card m-3">
         <div className="card-body">
           <h5 className="card-title">{board.name}</h5>
           <p className="card-text">{board.description}</p>
-          <button href="#" className="btn btn-primary" onClick={this.singleBoardEvent}>View Board</button>
+          <button href="#" className="btn btn-primary mx-2" onClick={this.singleBoardEvent}>View Board</button>
+          <button className="btn btn-danger mx-2" onClick={this.deleteBoardEvent}>Delete Board</button>
         </div>
       </div>
     );
