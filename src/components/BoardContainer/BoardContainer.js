@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Board from '../Board/Board';
+import BoardForm from '../BoardForm/BoardForm';
 
 import authData from '../../helpers/data/authData';
 import boardsData from '../../helpers/data/boardsData';
@@ -15,6 +16,7 @@ class BoardContainer extends React.Component {
 
   state = {
     boards: [],
+    formOpen: false,
   }
 
   deleteBoard = (boardId) => {
@@ -34,15 +36,20 @@ class BoardContainer extends React.Component {
   }
 
   render() {
-    const { boards } = this.state;
+    const { boards, formOpen } = this.state;
     const { setSingleBoard } = this.props;
 
     const boardCards = boards.map((board) => <Board key={board.id} board={board} setSingleBoard={setSingleBoard} deleteBoard={this.deleteBoard}/>);
 
     return (
+      <div>
+        <button className="btn btn-warning" onClick={() => { this.setState({ formOpen: !formOpen }); }}><i className="far fa-plus-square"></i></button>
+        {formOpen ? <BoardForm /> : ''}
       <div className="card-columns">
         {boardCards}
       </div>
+      </div>
+
     );
   }
 }
