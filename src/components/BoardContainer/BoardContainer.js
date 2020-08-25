@@ -17,6 +17,7 @@ class BoardContainer extends React.Component {
   state = {
     boards: [],
     formOpen: false,
+    editBoard: {},
   }
 
   deleteBoard = (boardId) => {
@@ -34,6 +35,11 @@ class BoardContainer extends React.Component {
       .catch((err) => console.error(err));
   };
 
+  editBoard = (board) => {
+    console.warn(board);
+    this.setState({ formOpen: true, editBoard: board });
+  };
+
   getBoards = () => {
     boardsData.getBoardsByUid(authData.getUid())
       .then((userBoards) => this.setState({ boards: userBoards }))
@@ -48,7 +54,7 @@ class BoardContainer extends React.Component {
     const { boards, formOpen } = this.state;
     const { setSingleBoard } = this.props;
 
-    const boardCards = boards.map((board) => <Board key={board.id} board={board} setSingleBoard={setSingleBoard} deleteBoard={this.deleteBoard}/>);
+    const boardCards = boards.map((board) => <Board key={board.id} board={board} setSingleBoard={setSingleBoard} deleteBoard={this.deleteBoard} editBoard={this.editBoard} />);
 
     return (
       <div>
