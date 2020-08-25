@@ -20,7 +20,9 @@ class SingleBoard extends React.Component {
   }
 
   createPin = (newPin) => {
-    console.warn(newPin);
+    pinsData.createPin(newPin)
+      .then(() => this.getPins())
+      .catch((err) => console.error(err));
   };
 
   getPins = () => {
@@ -47,7 +49,7 @@ class SingleBoard extends React.Component {
 
   render() {
     const { board, pins, formOpen } = this.state;
-    const { setSingleBoard } = this.props;
+    const { setSingleBoard, boardId } = this.props;
 
     const pinCards = pins.map((pin) => <Pin key={pin.id} pin={pin} deletePin={this.deletePin}/>);
 
@@ -60,7 +62,7 @@ class SingleBoard extends React.Component {
         <button className="btn" onClick={() => { this.setState({ formOpen: !formOpen }); }}>
           <i className="fas fa-plus-square"></i>
         </button>
-        {formOpen ? <PinForm boardId={board.id} createPin={this.createPin} /> : ''}
+        {formOpen ? <PinForm boardId={boardId} createPin={this.createPin} /> : ''}
         <div className="card-columns">
           { pinCards }
         </div>
