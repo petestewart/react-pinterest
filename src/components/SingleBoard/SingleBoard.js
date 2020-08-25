@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Pin from '../Pin/Pin';
+import PinForm from '../PinForm/PinForm';
 
 import boardsData from '../../helpers/data/boardsData';
 import pinsData from '../../helpers/data/pinsData';
@@ -15,7 +16,12 @@ class SingleBoard extends React.Component {
   state = {
     board: {},
     pins: [],
+    formOpen: false,
   }
+
+  createPin = (newPin) => {
+    console.warn(newPin);
+  };
 
   getPins = () => {
     const { boardId } = this.props;
@@ -40,7 +46,7 @@ class SingleBoard extends React.Component {
   };
 
   render() {
-    const { board, pins } = this.state;
+    const { board, pins, formOpen } = this.state;
     const { setSingleBoard } = this.props;
 
     const pinCards = pins.map((pin) => <Pin key={pin.id} pin={pin} deletePin={this.deletePin}/>);
@@ -48,7 +54,13 @@ class SingleBoard extends React.Component {
     return (
       <div>
         <h4>{board.name}</h4>
-        <button className="btn" onClick={() => { setSingleBoard(''); }}>X</button>
+        <button className="btn" onClick={() => { setSingleBoard(''); }}>
+          <i className="fas fa-window-close"></i>
+        </button>
+        <button className="btn" onClick={() => { this.setState({ formOpen: !formOpen }); }}>
+          <i className="fas fa-plus-square"></i>
+        </button>
+        {formOpen ? <PinForm boardId={board.id} createPin={this.createPin} /> : ''}
         <div className="card-columns">
           { pinCards }
         </div>

@@ -25,6 +25,15 @@ class BoardContainer extends React.Component {
       .catch((err) => console.error(err));
   };
 
+  createBoard = (newBoard) => {
+    boardsData.createBoard(newBoard)
+      .then(() => {
+        this.getBoards();
+        this.setState({ formOpen: false });
+      })
+      .catch((err) => console.error(err));
+  };
+
   getBoards = () => {
     boardsData.getBoardsByUid(authData.getUid())
       .then((userBoards) => this.setState({ boards: userBoards }))
@@ -43,11 +52,13 @@ class BoardContainer extends React.Component {
 
     return (
       <div>
-        <button className="btn btn-warning" onClick={() => { this.setState({ formOpen: !formOpen }); }}><i className="far fa-plus-square"></i></button>
-        {formOpen ? <BoardForm /> : ''}
-      <div className="card-columns">
-        {boardCards}
-      </div>
+        <button className="btn btn-warning" onClick={() => { this.setState({ formOpen: !formOpen }); }}>
+          <i className="far fa-plus-square"></i>
+        </button>
+        {formOpen ? <BoardForm createBoard={this.createBoard} /> : ''}
+        <div className="card-columns">
+          {boardCards}
+        </div>
       </div>
 
     );

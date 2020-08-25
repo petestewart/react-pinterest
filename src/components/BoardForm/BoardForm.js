@@ -1,8 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import authData from '../../helpers/data/authData';
 
 class BoardForm extends React.Component {
+  static propTypes = {
+    createBoard: PropTypes.func.isRequired,
+  }
+
   state = {
     name: '',
     description: '',
@@ -26,7 +31,7 @@ class BoardForm extends React.Component {
       description,
       uid: authData.getUid(),
     };
-    console.warn(newBoard);
+    this.props.createBoard(newBoard);
   };
 
   render() {
