@@ -14,6 +14,12 @@ class Pin extends React.Component {
     deletePin(pin.id);
   }
 
+  editPinEvent = (e) => {
+    e.preventDefault();
+    const { pin, editPin } = this.props;
+    editPin(pin);
+  };
+
   render() {
     const { pin } = this.props;
 
@@ -21,6 +27,7 @@ class Pin extends React.Component {
       <div className="card">
         <img className="card-img" src={pin.url} alt={pin.pinId} />
         <button className="btn btn-danger" onClick={this.deletePinEvent}>Delete Pin</button>
+        <button className="btn btn-danger" onClick={this.editPinEvent}>Edit Pin</button>
       </div>
     );
   }

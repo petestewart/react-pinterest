@@ -17,6 +17,7 @@ class SingleBoard extends React.Component {
     board: {},
     pins: [],
     formOpen: false,
+    editPin: {},
   }
 
   createPin = (newPin) => {
@@ -47,11 +48,27 @@ class SingleBoard extends React.Component {
       .catch((err) => console.error(err));
   };
 
+  editPin = (pin) => {
+    console.warn(pin);
+    this.setState({ formOpen: true, editPin: pin });
+  }
+
+  updatePin = (pinId, editedPin) => {
+    pinsData.updatePin(pinId, editedPin)
+      .then(() => {
+        this.getPins();
+        this.setState({ formOpen: false, editPin: {} });
+      })
+      .catch((err) => console.error(err));
+  };
+
   render() {
-    const { board, pins, formOpen } = this.state;
+    const {
+      board, pins, formOpen, editPin,
+    } = this.state;
     const { setSingleBoard, boardId } = this.props;
 
-    const pinCards = pins.map((pin) => <Pin key={pin.id} pin={pin} deletePin={this.deletePin}/>);
+    const pinCards = pins.map((pin) => <Pin key={pin.id} pin={pin} deletePin={this.deletePin} editPin={this.editPin} />);
 
     return (
       <div>
@@ -62,7 +79,7 @@ class SingleBoard extends React.Component {
         <button className="btn" onClick={() => { this.setState({ formOpen: !formOpen }); }}>
           <i className="fas fa-plus-square"></i>
         </button>
-        {formOpen ? <PinForm boardId={boardId} createPin={this.createPin} /> : ''}
+        {formOpen ? <PinForm boardId={boardId} createPin={this.createPin} updatePin={this.updatePin} pin={editPin} /> : ''}
         <div className="card-columns">
           { pinCards }
         </div>

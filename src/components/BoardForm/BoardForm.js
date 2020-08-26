@@ -88,7 +88,7 @@ class BoardForm extends React.Component {
         </div>
         {
           isEditing
-            ? <button className="btn- btn-light" onClick={this.editBoardEvent}>Update Board</button>
+            ? <button className="btn btn-light" onClick={this.editBoardEvent}>Update Board</button>
             : <button className="btn btn-primary" onClick={this.saveBoardEvent}>Create Board</button>
         }
 
