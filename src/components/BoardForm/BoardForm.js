@@ -47,6 +47,18 @@ class BoardForm extends React.Component {
     this.props.createBoard(newBoard);
   };
 
+  editBoardEvent = (e) => {
+    e.preventDefault();
+    const { name, description } = this.state;
+    const { updateBoard, board } = this.props;
+    const updatedBoard = {
+      name,
+      description,
+      uid: authData.getUid(),
+    };
+    updateBoard(board.id, updatedBoard);
+  };
+
   render() {
     const { description, name, isEditing } = this.state;
 
@@ -76,7 +88,7 @@ class BoardForm extends React.Component {
         </div>
         {
           isEditing
-            ? <button className="btn- btn-light">Edit Board</button>
+            ? <button className="btn- btn-light" onClick={this.editBoardEvent}>Update Board</button>
             : <button className="btn btn-primary" onClick={this.saveBoardEvent}>Create Board</button>
         }
 
